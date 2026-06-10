@@ -7,6 +7,7 @@ enum HintType: String, Codable, CaseIterable {
     case department
     case habit
     case yesno
+    case funFact
 }
 
 final class Hint: Model, Content, @unchecked Sendable {
