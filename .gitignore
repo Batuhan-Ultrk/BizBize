@@ -1,0 +1,43 @@
+.DS_Store
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Swift / Vapor
+.build/
+.swiftpm/
+Packages/
+db.sqlite
+default.profraw
+
+# Web
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+
+# iOS / Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+Pods/
+
+# Local editor settings
+.vscode/settings.json
+.idea/
