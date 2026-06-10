@@ -2,13 +2,16 @@ import Fluent
 import Vapor
 
 func routes(_ app: Application) throws {
-    app.get { req async throws in
-        try await req.view.render("index", ["title": "Hello Vapor!"])
+    app.get { req async -> String in
+        "BizBize API"
     }
 
-    app.get("hello") { req async -> String in
-        "Hello, world!"
-    }
-
-    try app.register(collection: TodoController())
+    try app.register(collection: AuthController())
+    try app.register(collection: AnnouncementController())
+    try app.register(collection: PollController())
+    try app.register(collection: DailyChallengeController())
+    try app.register(collection: LeaderboardController())
+    try app.register(collection: UserController())
+    try app.register(collection: HomeController())
+    try app.register(collection: ScoreController())
 }
