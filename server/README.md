@@ -1,33 +1,71 @@
 # BizBize Server
 
-💧 A project built with the Vapor web framework.
+OfficeLore/BizBize backend built with Vapor.
+
+## Auth Endpoints
+
+- `POST /auth/register` creates a user and returns a permanent token.
+- `POST /auth/login` returns a permanent token unless the user must reset their password after logout.
+- `POST /auth/logout` invalidates user tokens and marks password reset as required.
+- `GET /auth/me` returns the authenticated user profile.
+- `POST /auth/password-reset` creates a 10-minute reset token.
+- `POST /auth/password-reset/confirm` accepts `token` and `newPassword`.
+
+## Environment
+
+```bash
+APP_NAME=OfficeLore
+MAX_REGISTERED_USERS=50
+SERVER_HOSTNAME=0.0.0.0
+SERVER_PORT=8080
+```
 
 ## Getting Started
 
 Run these commands from the `server/` directory.
 
-To build the project using the Swift Package Manager:
+Start only PostgreSQL with Docker:
 
 ```bash
-swift build
+docker compose up -d db
 ```
 
-To run the project and start the server:
+Run migrations from the host:
+
+```bash
+swift run BizBizeServer migrate --yes
+```
+
+Run the server directly on the host:
 
 ```bash
 swift run
 ```
 
-To execute tests:
+By default, the server binds to `0.0.0.0:8080`, so devices on the same local network can call it through your machine's LAN IP.
+
+Build the project using the Swift Package Manager:
+
+```bash
+swift build
+```
+
+Execute tests:
 
 ```bash
 swift test
 ```
 
-To run with Docker Compose:
+Stop the local database:
 
 ```bash
-docker compose up app
+docker compose down
+```
+
+Wipe the local database volume:
+
+```bash
+docker compose down -v
 ```
 
 ### See more
