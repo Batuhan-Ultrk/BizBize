@@ -7,4 +7,10 @@ func routes(_ app: Application) throws {
     }
 
     try app.register(collection: AuthController())
+    try app.register(collection: AnnouncementController())
+    try app.register(collection: PollController())
+    try app.register(collection: DailyChallengeController())
+    try app.register(collection: LeaderboardController())
+    try app.register(collection: UserController())
+    try app.register(collection: HomeController())
 }

@@ -20,7 +20,24 @@ public func configure(_ app: Application) async throws {
 
     app.migrations.add(CreateUser())
     app.migrations.add(CreateUserToken())
+//    app.migrations.add(MakeUserTokenUserIDUnique())
     app.migrations.add(CreatePasswordResetToken())
+    app.migrations.add(CreateAnnouncement())
+    app.migrations.add(CreateAnnouncementRSVP())
+    app.migrations.add(CreatePoll())
+    app.migrations.add(CreatePollOption())
+    app.migrations.add(CreatePollVote())
+    app.migrations.add(CreateHint())
+    app.migrations.add(CreateDailyChallenge())
+    app.migrations.add(CreateDailyChallengeCandidate())
+    app.migrations.add(CreateGuess())
+    app.migrations.add(CreateUserScore())
+    app.migrations.add(CreateBadge())
+    app.migrations.add(CreateScoreEvent())
+    app.migrations.add(CreateSystemState())
+
+    app.lifecycle.use(DailyLunchPollScheduler())
+    app.lifecycle.use(SchedulerService())
 
     // register routes
     try routes(app)

@@ -45,8 +45,7 @@ struct AuthController: RouteCollection {
         )
         try await user.save(on: req.db)
 
-        let token = try UserToken.generate(for: user)
-        try await token.save(on: req.db)
+        let token = try await issueSingleToken(for: user, on: req.db)
 
         return try AuthResponseDTO(token: token.value, user: user.toPublicDTO())
     }
@@ -69,8 +68,7 @@ struct AuthController: RouteCollection {
             throw Abort(.forbidden, reason: "Logout sonrası tekrar giriş için şifre sıfırlama zorunludur.")
         }
 
-        let token = try UserToken.generate(for: user)
-        try await token.save(on: req.db)
+        let token = try await issueSingleToken(for: user, on: req.db)
 
         return try AuthResponseDTO(token: token.value, user: user.toPublicDTO())
     }
@@ -141,5 +139,16 @@ struct AuthController: RouteCollection {
         try await resetToken.delete(on: req.db)
 
         return .noContent
+    }
+
+    private func issueSingleToken(for user: User, on database: any Database) async throws -> UserToken {
+        let userID = try user.requireID()
+        try await UserToken.query(on: database)
+            .filter(\.$user.$id == userID)
+            .delete()
+
+        let token = try UserToken.generate(for: user)
+        try await token.save(on: database)
+        return token
     }
 }

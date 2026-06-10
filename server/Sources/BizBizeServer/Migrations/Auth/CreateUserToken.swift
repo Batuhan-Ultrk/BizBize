@@ -8,6 +8,7 @@ struct CreateUserToken: AsyncMigration {
             .field("user_id", .uuid, .required, .references(User.schema, "id", onDelete: .cascade))
             .field("created_at", .datetime)
             .unique(on: "value")
+            .unique(on: "user_id")
             .create()
     }
 
